@@ -17,6 +17,8 @@ public class LineMaker : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GameObject go = Instantiate(linePrefab);
+            go.layer = LayerMask.NameToLayer("PlatForm");
+
             lr = go.GetComponent<LineRenderer>();
             col = go.GetComponent<EdgeCollider2D>();  
             points.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));

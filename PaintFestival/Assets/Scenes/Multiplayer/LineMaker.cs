@@ -7,10 +7,18 @@ public class LineMaker : MonoBehaviour
 {
     public GameObject linePrefab;
 
+    private GameObject InkManager;
+    Ink ink;
     LineRenderer lr;
     EdgeCollider2D col;
     List<Vector2> points  = new List<Vector2>();
 
+    private void Start()
+    {
+        InkManager = GameObject.Find("InkManager");
+        ink = InkManager.GetComponent<Ink>();
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -34,6 +42,8 @@ public class LineMaker : MonoBehaviour
                 lr.positionCount++;
                 lr.SetPosition(lr.positionCount - 1, pos);
                 col.points = points.ToArray();
+
+                ink.ink -= 0.1f;
             }
         }
         else if(Input.GetMouseButtonUp(0))

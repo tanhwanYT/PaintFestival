@@ -18,5 +18,7 @@ public class Ink : MonoBehaviour
     void Update()
     {
         inkSlider.value = ink / Maxink;
+
+        if (ink > Maxink) ink = Maxink;
     }
 }

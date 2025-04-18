@@ -22,7 +22,7 @@ public class LineMaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && ink.ink > 0)
         {
             GameObject go = Instantiate(linePrefab);
             go.layer = LayerMask.NameToLayer("PlatForm");
@@ -43,7 +43,7 @@ public class LineMaker : MonoBehaviour
                 lr.SetPosition(lr.positionCount - 1, pos);
                 col.points = points.ToArray();
 
-                ink.ink -= 0.1f;
+                ink.ink -= 0.5f;
             }
         }
         else if(Input.GetMouseButtonUp(0))

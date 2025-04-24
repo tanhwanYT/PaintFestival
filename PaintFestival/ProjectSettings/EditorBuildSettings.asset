@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SinglePlayer/SingleGameScene.unity
     guid: 22770051510bd2a4eb48842912c96e46
   - enabled: 1
-    path: Assets/Scenes/SinglePlayer/PictureScene.unity
+    path: Assets/Scenes/SinglePlayer/PictureScene/PictureScene.unity
     guid: 9d9d1b4592486eb409f0b0ea3d262909
   m_configObjects: {}

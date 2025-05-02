@@ -33,6 +33,5 @@ public class PaletteManager : MonoBehaviour
     void SelectColor(Color c, int idx)
     {
         OnColorSelected?.Invoke(c);
-        Debug.Log($"Palette: 색상 {idx} 선택 → {c}");
     }
 }

@@ -12,6 +12,7 @@ public class PictureLineMaker : MonoBehaviour
     private PaletteManager palette;
     private Color currentColor = Color.black;
     private int lineSortingOrder = 0;
+    private bool isEraserMode = false;
     private List<GameObject> lines = new List<GameObject>();
 
     LineRenderer lr;
@@ -28,6 +29,44 @@ public class PictureLineMaker : MonoBehaviour
 
     void Update()
     {
+ /*       if(isEraserMode && Input.GetMouseButton(0))
+        {
+            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float eraseRadius = 2.0f;
+
+            foreach(GameObject line in lines)
+            {
+                LineRenderer lr = line.GetComponent<LineRenderer>();
+                int pointcount = lr.positionCount;
+                List<Vector3> newPostion = new List<Vector3>();
+
+                for(int i = 0; i < pointcount; i++)
+                {
+                    Vector3 point = lr.GetPosition(i);
+                    float dist = Vector2.Distance(mouseWorld, point);
+
+                    if(dist < eraseRadius)
+                    {
+                        newPostion.Add(point);
+                    }
+                }
+
+                if(newPostion.Count > 0)
+                {
+                    Destroy(line);
+                }
+                else
+                {
+                    lr.positionCount = newPostion.Count;
+                    for(int i = 0; i < newPostion.Count; i++)
+                    {
+                        lr.SetPosition(i, newPostion[i]);
+                    }
+                }
+            }
+        }
+ */
+
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -59,8 +98,7 @@ public class PictureLineMaker : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (points.Count > 0 && Vector2.Distance(points[points.Count - 1], mousePos) > 0.1f)
             {
@@ -77,6 +115,11 @@ public class PictureLineMaker : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Z))
         {
             UndoLastLine();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            isEraserMode = !isEraserMode;
         }
     }
 

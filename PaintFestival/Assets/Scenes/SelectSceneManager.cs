@@ -17,12 +17,6 @@ public class SelectSceneManager : MonoBehaviour
         SceneManager.LoadScene("SingleGameScene");
     }
 
-    public void OnOnlineButtonClicked()
-    {
-        selectPanel.SetActive(false);
-        SceneManager.LoadScene("GameScene");
-
-    }
 
     public void OnOfflineButtonClicked()
     {

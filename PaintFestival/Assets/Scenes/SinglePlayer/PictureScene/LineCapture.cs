@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class LineCapture : MonoBehaviour
@@ -9,6 +10,7 @@ public class LineCapture : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    private string saveFilename = "captureDrawing";
     // Start is called before the first frame update
     void Start()
     {
@@ -45,5 +47,19 @@ public class LineCapture : MonoBehaviour
 
         Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
         spriteRenderer.sprite = sprite;
+
+        byte[] pngbyte = tex.EncodeToPNG();
+
+        string path = Path.Combine(Application.persistentDataPath, saveFilename + ".png");
+
+        File.WriteAllBytes(path, pngbyte);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Application.OpenURL("file://" + Application.persistentDataPath);
+        }
     }
 }

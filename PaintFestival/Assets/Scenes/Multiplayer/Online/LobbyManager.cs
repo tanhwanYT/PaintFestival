@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -31,13 +32,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnCreatedRoom();
         print("OnCreatedRoom");
+        
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
         print("OnCreatedfailed, " + returnCode + " ," + message);
-
+        SceneManager.LoadScene("RoomScene");
     }
 
     public void joinroom()
@@ -50,6 +52,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("onjoinroom");
+        SceneManager.LoadScene("RoomScene");
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

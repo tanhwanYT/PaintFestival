@@ -10,6 +10,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public TMP_InputField roomNameInput;
 
+
     private string GetRoomName()
     {
         return string.IsNullOrEmpty(roomNameInput.text) ? "DefaultRoom" : roomNameInput.text;

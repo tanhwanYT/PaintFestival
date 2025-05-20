@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LineCapture : MonoBehaviour
 {
+    public static class CapturedImageData
+    {
+        public static Sprite capturedSprite;
+    }
+
     private Camera lineCamera;
     private RenderTexture renderTexture;
 
@@ -50,10 +56,14 @@ public class LineCapture : MonoBehaviour
 
         byte[] pngbyte = tex.EncodeToPNG();
 
+        CapturedImageData.capturedSprite = sprite;
+        SceneManager.LoadScene("SingleGameScene");
+
         string path = Path.Combine(Application.persistentDataPath, saveFilename + ".png");
 
         File.WriteAllBytes(path, pngbyte);
     }
+
 
     void Update()
     {

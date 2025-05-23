@@ -21,13 +21,11 @@ public class PlayerMoving : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        // 최대 속도 제한
         if (rigid.velocity.x > max_speed)
             rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
         if (rigid.velocity.x < -max_speed)
             rigid.velocity = new Vector2(-max_speed, rigid.velocity.y);
 
-        // 바닥 감지
         Debug.DrawRay(rigid.position, Vector2.down * 0.6f, Color.green);
 
         RaycastHit2D rayhit = Physics2D.Raycast(rigid.position, Vector2.down, 1.2f, LayerMask.GetMask("PlatForm"));
@@ -43,7 +41,6 @@ public class PlayerMoving : MonoBehaviour
             Debug.Log("none ground");
         }
 
-        // 점프 상태 초기화
         if (is_ground)
         {
             is_jump = false;
@@ -52,13 +49,11 @@ public class PlayerMoving : MonoBehaviour
 
     void Update()
     {
-        // 방향키 뗐을 때 멈춤
         if (Input.GetButtonUp("Horizontal"))
         {
             rigid.velocity = new Vector2(0, rigid.velocity.y);
         }
 
-        // 점프
         if (Input.GetButtonDown("Jump") && !is_jump && is_ground)
         {
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);

@@ -308,7 +308,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 229162365}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 769324872}
+        m_TargetAssemblyTypeName: RoleSelector, Assembly-CSharp
+        m_MethodName: SelectRole
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Keyboard
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &229162365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,7 +575,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 350215476}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 769324872}
+        m_TargetAssemblyTypeName: RoleSelector, Assembly-CSharp
+        m_MethodName: SelectRole
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Mouse
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &350215476
 MonoBehaviour:
   m_ObjectHideFlags: 0

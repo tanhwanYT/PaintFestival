@@ -15,12 +15,9 @@ public class RoleSelector : MonoBehaviourPunCallbacks
         roleSelectionPanel.SetActive(true);
         KeyboardButton = GameObject.Find("KeyboardButton").GetComponent<Button>();
         MouseButton = GameObject.Find("MouseButton").GetComponent<Button>();
-
-        KeyboardButton.onClick.AddListener(() => SelectRole("Keyboard"));
-        MouseButton.onClick.AddListener(() => SelectRole("Mouse"));
     }
 
-    void SelectRole(string role)
+    public void SelectRole(string role)
     {
         if (IsRoleAlreadyTake(role))
         {
@@ -31,17 +28,7 @@ public class RoleSelector : MonoBehaviourPunCallbacks
         Hashtable hash = new Hashtable { { "role", role } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
 
-        if (PhotonNetwork.IsConnectedAndReady)
-        {
-            if (PhotonNetwork.InLobby)
-            {
-                PhotonNetwork.JoinOrCreateRoom("Myroom", new RoomOptions { MaxPlayers = 2 }, TypedLobby.Default);
-            }
-            else
-            {
-                PhotonNetwork.JoinLobby(); 
-            }
-        }
+        roleSelectionPanel.SetActive(false);
     }
 
     bool IsRoleAlreadyTake(string role)
@@ -55,15 +42,5 @@ public class RoleSelector : MonoBehaviourPunCallbacks
             }
         }
         return false;
-    }
-    public override void OnJoinedLobby()
-    {
-        PhotonNetwork.JoinOrCreateRoom("Myroom", new RoomOptions { MaxPlayers = 2 }, TypedLobby.Default);
-    }
-
-    public override void OnJoinedRoom()
-    {
-        roleSelectionPanel.SetActive(false);
-        Debug.Log("choose Role: " + PhotonNetwork.LocalPlayer.CustomProperties["role"]);
     }
 }

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class PlayerMoving : MonoBehaviour
+public class PlayerMoving : MonoBehaviourPun
 {
     Rigidbody2D rigid;
     float max_speed = 3.0f;
@@ -11,13 +10,19 @@ public class PlayerMoving : MonoBehaviour
     public bool is_jump = false;
     public bool is_ground = false;
 
+    private bool isMineOrOffline;
+
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+
+        isMineOrOffline = !PhotonNetwork.IsConnected || photonView.IsMine;
     }
 
     private void FixedUpdate()
     {
+        if (!isMineOrOffline) return;
+
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
@@ -29,17 +34,7 @@ public class PlayerMoving : MonoBehaviour
         Debug.DrawRay(rigid.position, Vector2.down * 0.6f, Color.green);
 
         RaycastHit2D rayhit = Physics2D.Raycast(rigid.position, Vector2.down, 1.2f, LayerMask.GetMask("PlatForm"));
-
-        if (rayhit.collider != null)
-        {
-            is_ground = true;
-            Debug.Log("h");
-        }
-        else
-        {
-            is_ground = false;
-            Debug.Log("none ground");
-        }
+        is_ground = rayhit.collider != null;
 
         if (is_ground)
         {
@@ -49,6 +44,8 @@ public class PlayerMoving : MonoBehaviour
 
     void Update()
     {
+        if (!isMineOrOffline) return;
+
         if (Input.GetButtonUp("Horizontal"))
         {
             rigid.velocity = new Vector2(0, rigid.velocity.y);
@@ -59,7 +56,6 @@ public class PlayerMoving : MonoBehaviour
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
             is_jump = true;
             is_ground = false;
-            Debug.Log("do jump");
         }
     }
 }

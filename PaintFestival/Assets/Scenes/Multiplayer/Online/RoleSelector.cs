@@ -17,6 +17,14 @@ public class RoleSelector : MonoBehaviourPunCallbacks
         MouseButton = GameObject.Find("MouseButton").GetComponent<Button>();
     }
 
+    private void Update()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && AllPlayersSelectedRoles())
+        {
+            PhotonNetwork.LoadLevel("GameScene");
+        }
+    }
+
     public void SelectRole(string role)
     {
         if (IsRoleAlreadyTake(role))
@@ -42,5 +50,15 @@ public class RoleSelector : MonoBehaviourPunCallbacks
             }
         }
         return false;
+    }
+
+    private bool AllPlayersSelectedRoles()
+    {
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (!player.CustomProperties.ContainsKey("role"))
+                return false;
+        }
+        return true;
     }
 }

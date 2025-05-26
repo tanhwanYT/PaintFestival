@@ -10,6 +10,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public TMP_InputField roomNameInput;
 
+    void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
 
     private string GetRoomName()
     {

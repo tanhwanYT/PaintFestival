@@ -11,10 +11,10 @@ public class InkScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject player = GameObject.Find("Player");
-        PlayerTransform = player.transform;
+        GameObject player = GameObject.FindWithTag("Player");
+         PlayerTransform = player.transform;
 
-        InkManager = GameObject.Find("InkManager");
+        InkManager = GameObject.Find("GameManager");
         ink = InkManager.GetComponent<Ink>();
     }
 

@@ -57,7 +57,7 @@ public class LineMaker : MonoBehaviourPun
     {
         if (isOnline)
         {
-            currentLine = PhotonNetwork.Instantiate("LinePrefab", start, Quaternion.identity);
+            currentLine = PhotonNetwork.Instantiate("Line", start, Quaternion.identity);
         }
         else
         {

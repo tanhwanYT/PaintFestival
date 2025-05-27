@@ -10,6 +10,8 @@ public class RoleSelector : MonoBehaviourPunCallbacks
 
     private Button KeyboardButton;
     private Button MouseButton;
+
+    private bool hasLoadedScene = false;
     void Start()
     {
         roleSelectionPanel.SetActive(true);
@@ -19,9 +21,13 @@ public class RoleSelector : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && AllPlayersSelectedRoles())
+        if (!hasLoadedScene &&  PhotonNetwork.CurrentRoom.PlayerCount == 2 && AllPlayersSelectedRoles())
         {
-            PhotonNetwork.LoadLevel("GameScene");
+            hasLoadedScene = true;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.LoadLevel("GameScene");
+            }
         }
     }
 

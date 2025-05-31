@@ -13,15 +13,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        string role = PlayerPrefs.GetString("role", "Mouse");
+        object roleObj;
+        PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("role", out roleObj);
+        string role = roleObj?.ToString() ?? "Mouse";
 
         if (PhotonNetwork.IsConnected)
         {
-            if (role == "Mouse")
+            if (role == "Keyboard")
             {
                 PhotonNetwork.Instantiate("Player", new Vector3(-7.5f, 1.5f, 0), Quaternion.identity);
             }
-            else if (role == "keyboard")
+            else if (role == "Mouse")
             {
                 PhotonNetwork.Instantiate("Pencil", new Vector3(0f, 0f, 0f), Quaternion.identity);
             }

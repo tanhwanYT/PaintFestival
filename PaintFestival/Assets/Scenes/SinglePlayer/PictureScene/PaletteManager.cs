@@ -22,7 +22,6 @@ public class PaletteManager : MonoBehaviour
     {
         for (int i = 0; i < colorList.colors.Length; i++)
         {
-            // 위치 계산 (가로로 배치 예시)
             Vector3 pos = origin.position + Vector3.right * spacing * i;
             var go = Instantiate(buttonPrefab, pos, Quaternion.identity, transform);
             var btn = go.GetComponent<PaletteButton>();

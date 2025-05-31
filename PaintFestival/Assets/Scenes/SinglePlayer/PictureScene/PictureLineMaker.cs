@@ -95,6 +95,7 @@ public class PictureLineMaker : MonoBehaviour
             points.Add(mousePos);
             lr.positionCount = 1;
             lr.SetPosition(0, mousePos);
+
         }
         else if (Input.GetMouseButton(0))
         {

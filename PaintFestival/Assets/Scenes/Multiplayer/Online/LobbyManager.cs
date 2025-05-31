@@ -23,7 +23,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         string roomName = GetRoomName();
-        byte n = 10;
 
         RoomOptions options = new RoomOptions();
 

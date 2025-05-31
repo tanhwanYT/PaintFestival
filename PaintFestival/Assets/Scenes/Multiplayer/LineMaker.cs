@@ -35,7 +35,14 @@ public class LineMaker : MonoBehaviourPun
             Vector2 pos = GetMouseWorldPos();
             if (points.Count > 0 && Vector2.Distance(points[points.Count - 1], pos) > 0.1f)
             {
-                AddPoint(pos);
+                if (PhotonNetwork.IsConnected)
+                {
+                    photonView.RPC("RPC_AddPoint", RpcTarget.AllBuffered, pos);
+                }
+                else
+                {
+                    AddPoint(pos);
+                }
                 ink.ink -= 0.5f;
             }
         }
@@ -74,7 +81,8 @@ public class LineMaker : MonoBehaviourPun
         lr.SetPosition(0, start);
     }
 
-    void AddPoint(Vector2 pos)
+    [PunRPC]
+    public void AddPoint(Vector2 pos)
     {
         points.Add(pos);
         lr.positionCount++;

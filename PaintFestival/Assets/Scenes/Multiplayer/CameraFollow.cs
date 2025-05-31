@@ -15,7 +15,18 @@ public class CameraFollow : MonoBehaviour
     {
         cameraHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         cameraHalfHeight = Camera.main.orthographicSize;
-        GameObject player = GameObject.FindWithTag("Player");
+
+        StartCoroutine(FindTargetPlayer());
+    }
+
+    private IEnumerator FindTargetPlayer()
+    {
+        GameObject player = null;
+        while (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            yield return null;
+        }
         target = player.transform;
     }
 

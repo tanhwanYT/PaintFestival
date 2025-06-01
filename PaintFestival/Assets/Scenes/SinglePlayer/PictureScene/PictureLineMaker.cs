@@ -118,12 +118,11 @@ public class PictureLineMaker : MonoBehaviour
             UndoLastLine();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+/*        if (Input.GetKeyDown(KeyCode.E))
         {
             isEraserMode = !isEraserMode;
-        }
+        } */
     }
-
     private void OnColorChanged(Color newColor)
     {
         currentColor = newColor;

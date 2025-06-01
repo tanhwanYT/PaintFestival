@@ -18,7 +18,7 @@ public class PlayerMoving : MonoBehaviourPun
 
         isMineOrOffline = !PhotonNetwork.IsConnected || photonView.IsMine;
     }
-
+    
     private void FixedUpdate()
     {
         if (!isMineOrOffline) return;

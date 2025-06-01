@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         object roleObj;
         PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("role", out roleObj);
-        string role = roleObj?.ToString() ?? "Mouse";
+        string role = roleObj?.ToString() ?? "None";
 
         if (PhotonNetwork.IsConnected)
         {

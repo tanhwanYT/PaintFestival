@@ -37,13 +37,15 @@ public class LineMaker : MonoBehaviourPun
             {
                 if (PhotonNetwork.IsConnected)
                 {
-                    photonView.RPC("RPC_AddPoint", RpcTarget.AllBuffered, pos);
+                    currentLine.GetComponent<PhotonView>().RPC("AddPoint", RpcTarget.AllBuffered, pos);
+                    ink.ink -= 0.5f;
                 }
                 else
                 {
-                    AddPoint(pos);
+                    currentLine.GetComponent<LinrObj>().AddPoint(pos);
+                    ink.ink -= 0.5f;
                 }
-                ink.ink -= 0.5f;
+                
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -56,8 +58,8 @@ public class LineMaker : MonoBehaviourPun
     Vector2 GetMouseWorldPos()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(Camera.main.transform.position.z);
-        return Camera.main.ScreenToWorldPoint(mousePos);
+        mousePos.z = 0f;
+        return (Vector2)Camera.main.ScreenToWorldPoint(mousePos);
     }
 
     void CreateLine(Vector2 start)
@@ -75,19 +77,11 @@ public class LineMaker : MonoBehaviourPun
         lr = currentLine.GetComponent<LineRenderer>();
         col = currentLine.GetComponent<EdgeCollider2D>();
 
+
         points.Clear();
         points.Add(start);
         lr.positionCount = 1;
         lr.SetPosition(0, start);
-    }
-
-    [PunRPC]
-    public void AddPoint(Vector2 pos)
-    {
-        points.Add(pos);
-        lr.positionCount++;
-        lr.SetPosition(lr.positionCount - 1, pos);
-        col.points = points.ToArray();
     }
 
     bool IsMineOrOffline()

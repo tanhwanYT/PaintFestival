@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class InkScript : MonoBehaviour
 {
     private GameObject InkManager;
     private Transform PlayerTransform;
+
     Ink ink;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +19,11 @@ public class InkScript : MonoBehaviour
 
         InkManager = GameObject.Find("GameManager");
         ink = InkManager.GetComponent<Ink>();
+    }
+
+    private void Awake()
+    {
+
     }
 
     // Update is called once per frame

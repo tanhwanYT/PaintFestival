@@ -14,7 +14,7 @@ public class SelectSceneManager : MonoBehaviour
 
     public void selectSingleScene()
     {
-        SceneManager.LoadScene("SingleGameScene");
+        SceneManager.LoadScene("PictureScene");
     }
 
 

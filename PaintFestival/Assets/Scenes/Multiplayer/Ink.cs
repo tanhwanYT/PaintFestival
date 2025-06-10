@@ -1,24 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Ink : MonoBehaviour
+public class Ink : MonoBehaviourPun, IPunObservable
 {
     private float Maxink = 100.0f;
     public float ink = 100.0f;
-    public Slider inkSlider;
+    [SerializeField] private Slider inkSlider;
+
+    [SerializeField] private GameObject InkPrefabOffline;
 
     void Start()
     {
-        
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Instantiate("Ink", new Vector3(2f, 3f, 0), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(InkPrefabOffline, new Vector3(2f, 3f, 0), Quaternion.identity);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            if (photonView.IsMine)
+            {
+                if (ink > Maxink) ink = Maxink;
+            }
+            else
+            {
+            }
+        }
+        else
+        {
+            if (ink > Maxink) ink = Maxink;
+        }
+
         inkSlider.value = ink / Maxink;
 
-        if (ink > Maxink) ink = Maxink;
+    }
+
+    // 네트워크 값 주고받기
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(ink);
+        }
+        else 
+        {
+            ink = (float)stream.ReceiveNext();
+        }
     }
 }

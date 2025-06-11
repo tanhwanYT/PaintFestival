@@ -30,7 +30,7 @@ public class SinglePlayerMoving : MonoBehaviour
         if (rigid.velocity.x < -max_speed)
             rigid.velocity = new Vector2(-max_speed, rigid.velocity.y);
 
-        Debug.DrawRay(rigid.position, Vector2.down * 0.6f, Color.green);
+        Debug.DrawRay(rigid.position, Vector2.down * 1.0f, Color.green);
 
         RaycastHit2D rayhit = Physics2D.Raycast(rigid.position, Vector2.down, 1.2f, LayerMask.GetMask("PlatForm"));
         is_ground = rayhit.collider != null;

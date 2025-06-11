@@ -9,7 +9,7 @@ using TMPro;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public TMP_InputField roomNameInput;
-
+    public TextMeshProUGUI errorText; 
     void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -63,6 +63,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinRoomFailed(returnCode, message);
         print("OnJoinRoomfailed, " + returnCode + " ," + message);
-        joinroom();
+
+        errorText.text = "Room Name Wrong";
+        StopAllCoroutines(); 
+        StartCoroutine(ClearErrorTextAfterDelay());
+    }
+
+    private IEnumerator ClearErrorTextAfterDelay()
+    {
+        yield return new WaitForSeconds(2.5f);
+        errorText.text = "";
     }
 }

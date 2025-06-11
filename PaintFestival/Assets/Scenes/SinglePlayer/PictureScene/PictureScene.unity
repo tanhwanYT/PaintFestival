@@ -1275,7 +1275,7 @@ MonoBehaviour:
   colorList: {fileID: 11400000, guid: c411b30bd096df74bac4ecdd2f7863de, type: 2}
   buttonPrefab: {fileID: 72941717516750554, guid: db9aef49bb0058548bb5761ba261ed1f, type: 3}
   origin: {fileID: 74443998}
-  spacing: 2
+  spacing: 1.75
   OnColorSelected:
     m_PersistentCalls:
       m_Calls: []

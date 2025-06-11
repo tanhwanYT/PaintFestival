@@ -14,6 +14,7 @@ public class PictureLineMaker : MonoBehaviour
     private int lineSortingOrder = 0;
     private bool isEraserMode = false;
     private List<GameObject> lines = new List<GameObject>();
+    private Rect lastBoundingBox;
 
     LineRenderer lr;
     List<Vector2> points = new List<Vector2>();
@@ -110,6 +111,7 @@ public class PictureLineMaker : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            lastBoundingBox = GetFullDrawingBoundingBox();
             points.Clear();
         }
 
@@ -140,5 +142,35 @@ public class PictureLineMaker : MonoBehaviour
             Destroy(LastLine);
             lineSortingOrder--;
         }
+    }
+
+    public Rect GetFullDrawingBoundingBox()
+    {
+        if (lines.Count == 0) return new Rect();
+
+        float minX = float.MaxValue, maxX = float.MinValue;
+        float minY = float.MaxValue, maxY = float.MinValue;
+
+        foreach (var line in lines)
+        {
+            var lr = line.GetComponent<LineRenderer>();
+            int pointCount = lr.positionCount;
+
+            for (int i = 0; i < pointCount; i++)
+            {
+                Vector3 point = lr.GetPosition(i);
+                if (point.x < minX) minX = point.x;
+                if (point.x > maxX) maxX = point.x;
+                if (point.y < minY) minY = point.y;
+                if (point.y > maxY) maxY = point.y;
+            }
+        }
+
+        return new Rect(minX, minY, maxX - minX, maxY - minY);
+    }
+
+    public Rect GetLastBoundingBox()
+    {
+        return lastBoundingBox;
     }
 }

@@ -14,7 +14,10 @@ public class Ink : MonoBehaviourPun, IPunObservable
     {
         if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.Instantiate("Ink", new Vector3(2f, 3f, 0), Quaternion.identity);
+            if (photonView.IsMine)
+            {
+                PhotonNetwork.Instantiate("Ink", new Vector3(2f, 3f, 0), Quaternion.identity);
+            }
         }
         else
         {
@@ -55,4 +58,5 @@ public class Ink : MonoBehaviourPun, IPunObservable
             ink = (float)stream.ReceiveNext();
         }
     }
+
 }

@@ -27,6 +27,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.SetCustomProperties(reset);
         }
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("LobbyScene");
     }

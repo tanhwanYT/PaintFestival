@@ -77,7 +77,6 @@ public class LineMaker : MonoBehaviourPun
         lr = currentLine.GetComponent<LineRenderer>();
         col = currentLine.GetComponent<EdgeCollider2D>();
 
-
         points.Clear();
         points.Add(start);
         lr.positionCount = 1;

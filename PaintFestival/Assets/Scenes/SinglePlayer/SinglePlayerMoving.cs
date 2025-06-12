@@ -10,6 +10,9 @@ public class SinglePlayerMoving : MonoBehaviour
 
     float max_speed = 3.0f;
     float jump_power = 5.0f;
+    
+    float base_speed = 3.0f;
+    float base_jump_power = 5.0f;
 
     public bool is_jump = false;
     public bool is_ground = false;
@@ -22,6 +25,10 @@ public class SinglePlayerMoving : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float scaleFactor = transform.localScale.x; 
+        float speedFactor = 1 / Mathf.Max(scaleFactor, 0.1f); 
+        float jumpFactor = Mathf.Min(scaleFactor, 2.0f);
+
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
@@ -29,16 +36,6 @@ public class SinglePlayerMoving : MonoBehaviour
             rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
         if (rigid.velocity.x < -max_speed)
             rigid.velocity = new Vector2(-max_speed, rigid.velocity.y);
-
-        Debug.DrawRay(rigid.position, Vector2.down * 1.0f, Color.green);
-
-        RaycastHit2D rayhit = Physics2D.Raycast(rigid.position, Vector2.down, 1.2f, LayerMask.GetMask("PlatForm"));
-        is_ground = rayhit.collider != null;
-
-        if (is_ground)
-        {
-            is_jump = false;
-        }
     }
 
     void Update()
@@ -58,8 +55,28 @@ public class SinglePlayerMoving : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && !is_jump && is_ground)
         {
+            float jumpFactor = Mathf.Min(transform.localScale.x, 2.0f);
+            float jump_power = base_jump_power * jumpFactor;
+
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
             is_jump = true;
+            is_ground = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlatForm"))
+        {
+            is_ground = true;
+            is_jump = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlatForm"))
+        {
             is_ground = false;
         }
     }

@@ -8,21 +8,9 @@ public class Ink : MonoBehaviourPun, IPunObservable
     public float ink = 100.0f;
     [SerializeField] private Slider inkSlider;
 
-    [SerializeField] private GameObject InkPrefabOffline;
-
     void Start()
     {
-        if (PhotonNetwork.IsConnected)
-        {
-            if (photonView.IsMine)
-            {
-                PhotonNetwork.Instantiate("Ink", new Vector3(2f, 3f, 0), Quaternion.identity);
-            }
-        }
-        else
-        {
-            Instantiate(InkPrefabOffline, new Vector3(2f, 3f, 0), Quaternion.identity);
-        }
+
     }
 
     void Update()
@@ -59,4 +47,10 @@ public class Ink : MonoBehaviourPun, IPunObservable
         }
     }
 
+    [PunRPC]
+    public void AddInk(float amount)
+    {
+        ink += amount;
+        if (ink > Maxink) ink = Maxink;
+    }
 }

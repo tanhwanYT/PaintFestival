@@ -34,16 +34,25 @@ public class InkScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        ink.ink += 10;
-
-//        gameObject.SetActive(false);
+        if (!PhotonNetwork.IsConnected)
+        {
+            ink.ink += 10;
+        }
+        else if (ink != null && ink.photonView != null)
+        {
+            ink.photonView.RPC("AddInk", RpcTarget.All, 10f);
+        }
+        //      gameObject.SetActive(false);
 
         float range_X = Random.Range(PlayerTransform.position.x + 3, PlayerTransform.position.x + 7);
         float range_Y = Random.Range(-4,7);
         Vector2 RandomPostion = new Vector2(range_X, range_Y);
         transform.position = RandomPostion;
 
-
- //       gameObject.SetActive(true);
+ //     gameObject.SetActive(true);
+    }
+    public void SetInk(Ink inkRef)
+    {
+        ink = inkRef;
     }
 }

@@ -612,7 +612,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ink: 150
   inkSlider: {fileID: 134927446}
-  InkPrefabOffline: {fileID: 880204971065241894, guid: 2ae1918b30df1a44e85ebef04a6ec9aa, type: 3}
 --- !u!4 &768209828
 Transform:
   m_ObjectHideFlags: 0
@@ -642,6 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefabOffline: {fileID: 3341633800584947468, guid: a2677c69c775c5e40b82f19530ea180e, type: 3}
   pencilPrefabOffline: {fileID: 5195585092987013212, guid: 19a3f3b0e026d7e4992c78a73f49ff03, type: 3}
+  inkPrefabOffline: {fileID: 880204971065241894, guid: b44fc625d3f978c478a54a276fb54fd5, type: 3}
 --- !u!114 &768209830
 MonoBehaviour:
   m_ObjectHideFlags: 0
